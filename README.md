@@ -2,11 +2,15 @@ File Manager Desktop Application with Flutter
 
 Project Overview
 
+
 This project builds a feature-rich File Manager desktop application using Flutter, designed to seamlessly complement the existing web application experience. It delivers native-looking UIs across Windows, macOS, and Linux while providing essential file management functionalities:
 
 Cross-Platform Compatibility: Enjoy consistent performance and ease of use across different operating systems.
+
 Responsive UI: The interface adapts automatically to various screen sizes and resolutions.
+
 Offline Capabilities: Operate effectively even without an internet connection, empowering you to manage important files locally.
+
 
 Rich File Management:
 Create New Files: Generate new text files (.txt) conveniently.
@@ -22,22 +26,28 @@ Flutter: A cutting-edge UI framework that enables cross-platform development wit
 dart::io: Provides essential functionalities for interacting with the file system, file operations, and user interactions.
 path_provider: Facilitates locating and accessing relevant directories on different platforms for smooth file handling.
 
+
 Getting Started
 Prerequisites:
+
 1.Have Flutter installed and configured on your system (https://flutter.dev/docs/get-started/install).
+
 2.Ensure you have the dart::io and path_provider packages installed in your Flutter project:
 Bash
 flutter pub add dart:io
 flutter pub add path_provider
+
 3.Clone the Repository:
 Bash
 git clone https://github.com/your-username/file-manager-desktop.git
 Use code with caution. Learn more
+
 4.Run the Application:
 Navigate to the project directory:
 Bash
 cd file-manager-desktop
 Use code with caution. Learn more
+
 5.Start the development server:
 Bash
 flutter run
@@ -45,9 +55,12 @@ Use code with caution. Learn more
 The application will launch in your default desktop environment.
 Development and Customization
 
+
 Additional Features:
 Adding New Features: Explore more file management operations, such as copy/paste, folder creation/deletion, or custom functionalities specific to your use case.
+
 Tailoring the UI: Modify the UI to match your design preferences or brand guidelines.
+
 Testing and Debugging: Write thorough unit and integration tests to ensure code quality and stability. Use Flutter's debugging tools to identify and resolve issues.
 Building and Distributing
 
@@ -56,10 +69,12 @@ Once satisfied with development, build the application for different platforms:
 Bash
 flutter build windows
 Use code with caution. Learn more
+
 2.macOS:
 Bash
 flutter build macos
 Use code with caution. Learn more
+
 3.Linux:
 Bash
 flutter build linux
