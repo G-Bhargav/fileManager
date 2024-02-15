@@ -5,6 +5,7 @@ Project Overview
 This project builds a feature-rich File Manager desktop application using Flutter, designed to seamlessly complement the existing web application experience. It delivers native-looking UIs across Windows, macOS, and Linux while providing essential file management functionalities:
 
 Cross-Platform Compatibility: Enjoy consistent performance and ease of use across different operating systems.
+
 Responsive UI: The interface adapts automatically to various screen sizes and resolutions.
 Offline Capabilities: Operate effectively even without an internet connection, empowering you to manage important files locally.
 Rich File Management:
