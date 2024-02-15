@@ -2,6 +2,7 @@ File Manager Desktop Application with Flutter
 
 Project Overview
 
+Project Overview
 
 This project builds a feature-rich File Manager desktop application using Flutter, designed to seamlessly complement the existing web application experience. It delivers native-looking UIs across Windows, macOS, and Linux while providing essential file management functionalities:
 
