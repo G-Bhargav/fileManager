@@ -57,7 +57,9 @@ Expand your file management reach with this versatile desktop application built 
 #### Run the app: 
 ```flutter run```
 
+## Screen Recording:
+
+https://github.com/G-Bhargav/fileManager/assets/117430958/f75d455e-2334-4b97-8977-3b0d2929bd3f
 
 ## Contribute and Connect:
-
 We welcome your contributions and feedback! Share your thoughts and help us enhance this File Manager for everyone.
