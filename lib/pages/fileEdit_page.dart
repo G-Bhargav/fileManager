@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'home_page.dart';
 
 class FileEdit extends StatefulWidget {
   const FileEdit({super.key});
@@ -15,22 +15,19 @@ class _FileEditState extends State<FileEdit> {
   TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
 
-  Future<void> setText() async {
-    final file = File("C:\\Users\\USER\\Desktop\\Home screen.txt");
+  Future<void> setText(String path) async {
+    final file = File(path);
     var body = file.readAsStringSync();
     var title = file.path.split(Platform.pathSeparator).last.split(".")[0];
     titleController.text = title;
     bodyController.text = body;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    setText();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as DataClass?;
+    setText((args!=null) ? args.path : "");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -45,7 +42,7 @@ class _FileEditState extends State<FileEdit> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context,'/home');
+            Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back),
         ),

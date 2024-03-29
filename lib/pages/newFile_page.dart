@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'home_page.dart';
 
 class NewFile extends StatefulWidget {
   const NewFile({super.key});
@@ -16,6 +17,7 @@ class _NewFileState extends State<NewFile> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as DataClass?;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -48,7 +50,29 @@ class _NewFileState extends State<NewFile> {
         ),
       ),
       floatingActionButton: TextButton(
-        onPressed: () { },
+        onPressed: () {
+          final title = titleController.text;
+          var proceed=true;
+          for (var element in args!.files) {
+            if(element.path.split(Platform.pathSeparator).last.split(".")[0]==title){
+              proceed=false;
+              break;
+            }
+          }
+          if(title==""){
+            //Alert
+          }
+          else if(!proceed){
+            print("cannot proceed");
+            //warn about existence
+          }
+          else{
+            var file = File('${args!.path}\\${titleController.text}.txt');
+            file.writeAsString(bodyController.text);
+            Navigator.pop(context);
+          }
+
+        },
         child: Text("Save"),
 
       ),
