@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'home_page.dart';
@@ -20,21 +19,21 @@ class _NewFileState extends State<NewFile> {
     final args = ModalRoute.of(context)!.settings.arguments as DataClass?;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.blueAccent,
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             controller: titleController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Title",
             ),
           ),
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context,'/home');
+            Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
       ),
       body: Padding(
@@ -43,7 +42,7 @@ class _NewFileState extends State<NewFile> {
           minLines: 32,
           maxLines: 1000,
           controller: bodyController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: "Body",
           ),
@@ -60,20 +59,24 @@ class _NewFileState extends State<NewFile> {
             }
           }
           if(title==""){
-            //Alert
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Blank Title is not allowed"))
+            );
           }
           else if(!proceed){
-            print("cannot proceed");
             //warn about existence
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("File with same name is already present in the same directory!!!"))
+            );
           }
           else{
-            var file = File('${args!.path}\\${titleController.text}.txt');
+            var file = File('${args.path}\\${titleController.text}.txt');
             file.writeAsString(bodyController.text);
             Navigator.pop(context);
           }
 
         },
-        child: Text("Save"),
+        child: const Text("Save"),
 
       ),
     );
