@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,11 +20,15 @@ class DataClass {
 class _HomeState extends State<Home> {
   List<FileSystemEntity> files = [];
 
+  Future<String> downloadDirectory() async {
+    final directory = await getDownloadsDirectory();
+    return directory!.path;
+  }
+
   Future<bool> getList(String path) async {
     if (path != "") {
       files = Directory(path).listSync();
-    }
-    else {
+    } else {
       final directory = await getDownloadsDirectory();
       files = directory!.listSync();
     }
@@ -56,15 +61,16 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as DataClass?;
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(40, 42, 54, 1)
-      ,
+      backgroundColor: const Color.fromRGBO(40, 42, 54, 1),
       appBar: AppBar(
-         backgroundColor: const Color.fromRGBO(98, 114, 164,1),
+        backgroundColor: const Color.fromRGBO(98, 114, 164, 1),
         title: const Padding(
-            padding: EdgeInsets.all(8.0), child: Text("File Manager")),
+          padding: EdgeInsets.all(8.0),
+          child: Text("File Manager"),
+        ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).maybePop();
           },
           icon: const Icon(Icons.arrow_back),
         ),
@@ -78,8 +84,8 @@ class _HomeState extends State<Home> {
           if (snapshot.hasData) {
             return GridView.builder(
               itemCount: files.length,
-              gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 10),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 10),
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
                   if (files[index].toString().contains("Directory")) {
@@ -88,17 +94,22 @@ class _HomeState extends State<Home> {
                   } else if (files[index].toString().contains(".txt")) {
                     Navigator.pushNamed(context, '/fileEdit',
                         arguments: DataClass(files[index].path));
-
+                  }
+                  else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Currently opening of this file is not supported"),
+                          duration: Durations.long4,
+                        ));
                   }
                 },
-                onSecondaryTap: (){
-                  final file= files[index].path.split(Platform.pathSeparator).last;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text(file),
-                        duration: Durations.long4,
-                      )
-                  );
+                onSecondaryTap: () {
+                  final file =
+                      files[index].path.split(Platform.pathSeparator).last;
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(file),
+                    duration: Durations.long4,
+                  ));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8),
@@ -111,7 +122,6 @@ class _HomeState extends State<Home> {
                           widthFactor: 0.75,
                           heightFactor: 0.75,
                           child: SvgPicture.asset(
-
                             (files[index].toString().contains("Directory"))
                                 ? "assets/icons/ic_fluent_folder_24_regular.svg"
                                 : customIcon(files[index]
@@ -132,8 +142,6 @@ class _HomeState extends State<Home> {
                         style: const TextStyle(
                           color: Color.fromRGBO(248, 248, 242, 0.75),
                         ),
-
-                        //.split(".").first
                       ),
                     ],
                   ),
@@ -146,11 +154,18 @@ class _HomeState extends State<Home> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
+          String path = "";
+          if (args == null) {
+            path = await downloadDirectory();
+          }
           Navigator.pushNamed(
-              context,
-              '/new',
-              arguments: DataClass(args!.path, files: files));
+            context,
+            '/new',
+            arguments: (args != null)
+                ? DataClass(args.path, files: files)
+                : DataClass(path, files: files),
+          );
         },
         tooltip: 'New File',
         child: const Icon(Icons.add),
