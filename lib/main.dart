@@ -1,8 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'package:file_manager/pages/fileEdit_page.dart';
+import 'package:file_manager/pages/file_edit_page.dart';
 import 'package:file_manager/pages/home_page.dart';
-import 'package:file_manager/pages/newFile_page.dart';
+import 'package:file_manager/pages/new_file_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,12 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/fileEdit' : (context) => FileEdit(),
-        '/home': (context) => Home(),
-        '/new': (context) => NewFile(),
+        '/fileEdit' : (context) => const FileEdit(),
+        '/home': (context) => const Home(),
+        '/new': (context) => const NewFile(),
       },
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: const Home(),
     );
   }
 }
